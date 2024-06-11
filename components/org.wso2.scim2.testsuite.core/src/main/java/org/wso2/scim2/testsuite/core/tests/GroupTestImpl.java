@@ -242,23 +242,23 @@ public class GroupTestImpl implements ResourceType {
 
         if (noOfGroups.equals("One")) {
             definedGroups.add("{\"schemas\":[\"urn:ietf:params:scim:schemas:core:2.0:Group\"]," +
-                    "\"displayName\":\"XwLtOP23\",\"members\":[{\"value\":\"" + userIDs.get(0) + "\",\"displayName" +
+                    "\"displayName\":\"XwLtOP23\",\"members\":[{\"value\":\"" + userIDs.get(0) + "\",\"display" +
                     "\":\"loginUser1\",\"$ref\":\"" + complianceTestMetaDataHolder.getUrl() +
                     ComplianceConstants.TestConstants.USERS_ENDPOINT + "/" + userIDs.get(0) + "\"}," +
-                    "{\"value\":\"" + userIDs.get(1) + "\",\"displayName\":\"loginUser2\"},{\"value\":\"" +
-                    userIDs.get(2) + "\",\"displayName\":\"loginUser3\"},{\"value\":\"" + userIDs.get(3) +
-                    "\",\"displayName" + "\":\"loginUser4" + "\"}," +
-                    "{\"value\":\"" + userIDs.get(4) + "\",\"displayName\":\"loginUser5\"}]}");
+                    "{\"value\":\"" + userIDs.get(1) + "\",\"display\":\"loginUser2\"},{\"value\":\"" +
+                    userIDs.get(2) + "\",\"display\":\"loginUser3\"},{\"value\":\"" + userIDs.get(3) +
+                    "\",\"display" + "\":\"loginUser4" + "\"}," +
+                    "{\"value\":\"" + userIDs.get(4) + "\",\"display\":\"loginUser5\"}]}");
         } else if (noOfGroups.equals("Many")) {
             definedGroups.add("{\"displayName\": \"EYtXcD21\"}");
             definedGroups.add("{\"displayName\": \"BktqER22\"}");
             definedGroups.add("{\"displayName\": \"ZwLtOP23\"}");
             definedGroups.add("{\"schemas\":[\"urn:ietf:params:scim:schemas:core:2.0:Group\"]," +
-                    "\"displayName\":\"XwLtOP23\",\"members\":[{\"value\":\"" + userIDs.get(0) + "\",\"displayName" +
-                    "\":\"loginUser1\"}," + "{\"value\":\"" + userIDs.get(1) + "\",\"displayName\":\"loginUser2\"}," +
-                    "{\"value\":\"" + userIDs.get(2) + "\",\"displayName\":\"loginUser3\"},{\"value\":\"" +
-                    userIDs.get(3) + "\",\"displayName" + "\":\"loginUser4" + "\"}," +
-                    "{\"value\":\"" + userIDs.get(4) + "\",\"displayName\":\"loginUser5\"}]}");
+                    "\"displayName\":\"XwLtOP23\",\"members\":[{\"value\":\"" + userIDs.get(0) + "\",\"display" +
+                    "\":\"loginUser1\"}," + "{\"value\":\"" + userIDs.get(1) + "\",\"display\":\"loginUser2\"}," +
+                    "{\"value\":\"" + userIDs.get(2) + "\",\"display\":\"loginUser3\"},{\"value\":\"" +
+                    userIDs.get(3) + "\",\"display" + "\":\"loginUser4" + "\"}," +
+                    "{\"value\":\"" + userIDs.get(4) + "\",\"display\":\"loginUser5\"}]}");
         }
 
         HttpPost method = new HttpPost(url);
@@ -1100,14 +1100,14 @@ public class GroupTestImpl implements ResourceType {
         String groupId = null;
         userIDs = createTestsUsers("Many");
         definedGroups.add("{\"schemas\":[\"urn:ietf:params:scim:schemas:core:2.0:Group\"]," +
-                "\"displayName\":\"XwLtOP23\",\"members\":[{\"value\":\"" + userIDs.get(0) + "\",\"displayName" +
+                "\"displayName\":\"XwLtOP23\",\"members\":[{\"value\":\"" + userIDs.get(0) + "\",\"display" +
                 "\":\"loginUser1\",\"$ref\":\"" + complianceTestMetaDataHolder.getUrl() +
                 ComplianceConstants.TestConstants.USERS_ENDPOINT + "/" + userIDs.get(0) + "\"}," +
-                "{\"value\":\"" + userIDs.get(1) + "\",\"displayName\":\"loginUser2\"},{\"value\":\"" + userIDs.get(2) +
-                "\",\"displayName\":\"loginUser3\"},{\"value\":\"" + userIDs.get(3) + "\",\"displayName" +
+                "{\"value\":\"" + userIDs.get(1) + "\",\"display\":\"loginUser2\"},{\"value\":\"" + userIDs.get(2) +
+                "\",\"display\":\"loginUser3\"},{\"value\":\"" + userIDs.get(3) + "\",\"display" +
                 "\":\"loginUser4" +
                 "\"}," +
-                "{\"value\":\"" + userIDs.get(4) + "\",\"displayName\":\"loginUser5\"}]}");
+                "{\"value\":\"" + userIDs.get(4) + "\",\"display\":\"loginUser5\"}]}");
         definedGroups.add("{\"displayName\": \"XwLtOP23\"}");
         definedGroups.add("");
 
