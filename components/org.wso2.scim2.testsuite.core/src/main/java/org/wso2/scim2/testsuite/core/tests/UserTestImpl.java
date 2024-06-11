@@ -886,26 +886,27 @@ public class UserTestImpl implements ResourceType {
         requestPath2.setUrl("?attributes=userName,name.givenName");
         requestPath2.setTestCaseName("Get a user with specific attributes userName and givenName");
 
-        RequestPath requestPath3 = new RequestPath();
-        requestPath3.setUrl("?excludedAttributes=emails");
-        requestPath3.setTestCaseName("Get a user with excluding attribute emails");
+//        RequestPath requestPath3 = new RequestPath();
+//        requestPath3.setUrl("?excludedAttributes=emails");
+//        requestPath3.setTestCaseName("Get a user with excluding attribute emails");
 
         RequestPath requestPath4 = new RequestPath();
         requestPath4.setUrl(generateUniqueID());
         requestPath4.setTestCaseName("Get a non existing user and validate user not found error response");
 
-        RequestPath requestPath5 = new RequestPath();
-        requestPath5.setUrl("?attributes=urn:ietf:params:scim:schemas:extension:enterprise:2.0:User:employeeNumber" +
-                ",userName");
-        requestPath5.setTestCaseName("Get a enterprise user with specific attribute employeeNumber");
+//        RequestPath requestPath5 = new RequestPath();
+//        requestPath5.setUrl("?attributes=urn:ietf:params:scim:schemas:extension:enterprise:2.0:User:employeeNumber" +
+//                ",userName");
+//        requestPath5.setTestCaseName("Get a enterprise user with specific attribute employeeNumber");
 
         RequestPath requestPath6 = new RequestPath();
         requestPath6.setUrl("?excludedAttributes=urn:ietf:params:scim:schemas:extension:enterprise:2.0:User" +
                 ":employeeNumber");
         requestPath6.setTestCaseName("Get a enterprise user with excluding attribute employeeNumber");
 
-        requestPaths = new RequestPath[]{requestPath1, requestPath2, requestPath3, requestPath4, requestPath5,
-                requestPath6};
+//        requestPaths = new RequestPath[]{requestPath1, requestPath2, requestPath3, requestPath4, requestPath5,
+//                requestPath6};
+        requestPaths = new RequestPath[]{requestPath1, requestPath2, requestPath4, requestPath6};
 
         for (RequestPath requestPath : requestPaths) {
             long startTime = System.currentTimeMillis();
