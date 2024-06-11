@@ -21,3 +21,11 @@
 *.rar
 *.iml
 target/
+
+# npm
+cache
+
+# Eclipse
+.classpath
+.project
+.settings
