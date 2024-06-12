@@ -1,120 +1,94 @@
 # SCIM 2.0 Compliance Test Suite
 
-<p align="center">
-<img align="middle" src="https://github.com/wso2-incubator/scim2-compliance-test-suite/blob/master/logo.png"  width="350px" height = "140px">
-</p>
+This is a fork of [wso2-incubator/scim2-compliance-test-suite](https://github.com/wso2-incubator/scim2-compliance-test-suite/tree/test-suite-v2) that aims to fix and improve the library for our use in the Nuxeo SCIM 2.0 [compliance tests](https://github.com/nuxeo/nuxeo-lts/blob/2023/modules/platform/nuxeo-scim-v2/src/test/java/org/nuxeo/scim/v2/tests/compliance/ScimV2ComplianceTest.java).
 
-This project is on implementing the SCIM 2.0 compliance test suite which can be run on-premise. The test suite is 
-intended to validate the supportability of a provided service provider in terms of the SCIM 2.0 [core specification](https://tools.ietf.org/html/rfc7643) 
-and [protocol specification](https://tools.ietf.org/html/rfc7644).
+Original readme can be found [there](README.ori.md).
 
-## Table Of Contents
+## Use the Library
 
-- [How to run On-Premise](#how-to-run-on-premise)
-- [Design and Implementation](#design-and-implementation)
-- [Test coverage](#test-coverage)
-- [Features](#features)
-- [Contribute](#contribute)
-    * [Reporting Issues](#reporting-issues)
-- [License](#license)
+You can download this library from our [artifactory](https://packages.nuxeo.com/#browse/search/maven=attributes.maven2.groupId%3Dorg.wso2.scim2.testsuite).
 
-## How to Run On Premise
+Or, with Maven:
 
-1. Clone this project by running git clone https://github.com/wso2-incubator/scim2-compliance-test-suite.git
-2. Make sure you have the latest node version installed.
-3.  Opened the cloned project and run
-    ```
-    mvn clean install
-    ```
-4. Install the java certificate as explained [here](http://www.mkyong.com/webservices/jax-ws/suncertpathbuilderexception-unable-to-find-valid-certification-path-to-requested-target/).
-5. Deploy the org.wso2.scim2.testsuite.endpoint.war file inside components/org.wso2.scim2.testsuite.endpoint/target to apache tomcat webapps. In linux environment /var/lib/tomcat9/webapps.
-6. Navigate to http://127.0.0.1:8080/org.wso2.scim2.testsuite.endpoint/ from the browser.
-7. Click on authentication and add the details. Then click on Submit.
+```xml
+<project>
+  ...
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>org.wso2.scim2.testsuite</groupId>
+        <artifactId>scim2-compliance-test-suite</artifactId>
+        <version>VERSION</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
 
+  ...
 
-![Authentication forum](https://user-images.githubusercontent.com/38417165/115225304-90352600-a12b-11eb-9aac-c1c685ab8c55.png)
+  <repositories>
+    <repository>
+      <id>nuxeo-public</id>
+      <url>https://packages.nuxeo.com/repository/maven-public/</url>
+      <releases>
+        <enabled>true</enabled>
+      </releases>
+      <snapshots>
+        <updatePolicy>always</updatePolicy>
+        <enabled>true</enabled>
+      </snapshots>
+    </repository>
+  </repositories>
+  ...
+</project>
+```
 
-9.  Select endpoints that need to be tested and click on the Run button.
+## Release the Projet
 
-![Select tests](https://user-images.githubusercontent.com/38417165/115225312-91fee980-a12b-11eb-9d39-a897854fd5f5.png)
+Make sure the project builds and its tests pass.
 
+Then, create a temporary branch to perform the release:
 
-## Design and Implementation 
+```bash
+git checkout -b tmp-release
+```
 
-![Architecture Diagram](https://user-images.githubusercontent.com/38417165/115230197-a645e500-a131-11eb-8fa4-0312c6cb8abe.jpeg)
+Then, update the project version to the release one, for instance 1.1-NX02:
 
+```bash
+mvn versions:set -DnewVersion=1.1-NX02 -DgenerateBackupPoms=false
+```
 
+Then, commit and tag the release:
 
-SCIM2 Compliance Test Suite is mainly built on top of using the above components.
+```bash
+git commit -a -m "Release 1.1-NX02"
+git tag -a -m "Release 1.1-NX02" 1.1-NX02
+```
 
-- **Test Base (Java Library)** - This is a pure Java library that includes 125 compliance tests. It can be used by any 
-web application or any other Java component. It has the ability to skip/execute tests based on ServiceProviderConfig details returned from SCIM Service Provider (SP)(eg: If SP doesn’t support Bulk operations, Bulk endpoint-related tests get skipped).
-- **Web Application** - React-based web application which uses a web servlet to communicate with implemented Java API 
-  in the Test Base. It has the capability to select desired resource operations using the checkbox options, and display the executed test cases and their corresponding results in a user-friendly manner. It also has two authentication methods namely basic authentication and bearer token to access the SCIM endpoint.
+Then, deploy the Maven artefacts:
 
-![Web application view](https://user-images.githubusercontent.com/38417165/115225327-962b0700-a12b-11eb-8b45-536dd5ce4d25.png)
+```bash
+mvn clean deploy -DskipTests -DaltDeploymentRepository=maven-vendor::default::VENDOR_URL
+```
 
+> [!IMPORTANT]
+> You should replace the `VENDOR_URL`.
+> Your Maven `settings.xml` file should contain appropriate authentication (if any) for the `maven-vendor` repository.
 
+Then, push the tag:
 
-- **Integration test component of product-is** - This work along with product-is at the product build time. It directly 
-  invokes the Test Base to execute test cases. If any assertion failure is found, the product-is build will be terminated with the status “build-failure”.
-    
-- **SCIM service provider implementation** - SCIM implementation that need to be tested.  
+```bash
+git push --tags
+```
 
-## Test Coverage 
+Finally clean up your branch and prepare the next development iteration:
 
-This test suite covers the main SCIM endpoints defined in RFC 7643 using 125 test cases. These test cases belong to 7 endpoints and operations under each endpoint. The following image illustrates the number of test cases covered and methods covered under each endpoint.
-
-![Test Coverage](https://user-images.githubusercontent.com/38417165/115230205-a7771200-a131-11eb-835c-80c15548393f.jpeg)
-
-
-
-
-## Features
-
-**Test Report as PDF** - A PDF test report will be generated by the end of the test suite execution and can be found in the '/WEB-INF folder where the web app resides. It includes the executed test case, validated assertions along with the 
-expected results and actual results. The PDF ends with an overall statistical summary including Total elapsed time, Number of total test cases, passed cases, failed cases, 
-and skipped test cases. 
-
-<div>
-<p align="center">
-<img align="middle" src="https://user-images.githubusercontent.com/38417165/115225319-94614380-a12b-11eb-923b-2fa850c9879d.png"  
-width="200px" height = "340px">
-<img align="middle" src="https://user-images.githubusercontent.com/38417165/115225324-95927080-a12b-11eb-9a2f-2753d8c72d39.png"  
-width="200px" height = "340px">
-<img align="middle" src="https://user-images.githubusercontent.com/38417165/115225314-92978000-a12b-11eb-81ea-e534bb76ed65.png"  
-width="200px" height = "340px">
-</p>
-</div>
-**Add Custom Test Cases** - The suite is developed with scalability in mind. Developers are welcome to add custom test 
-cases and improve the test suite.
-
-
-1. Navigate to the /components/org.wso2.scim2.testsuite.
-core/src/main/java/org/wso2/scim2/testsuite/core/tests/resource class in which you want to add the test case (eg: UserTest class for /Users endpoint related test cases).
-2. Go to the operation in which you want to add a test scenario.(eg: getMethodTest operation)
-3. Add the testCaseName using setTestCaseName , set the request URL using setUrl , and the check test supportability 
-using getTestSupported.
-4. Add the required assertions to cover the scenario inside the for loop in getTestMethod.
-5. Rebuild the project and run.
-
-**Add Custom Resources** - All the basic resources are covered under the test suite. If your organization needs a 
-specific test resource. You can add a new test class with a resource name and implement it as a ResourceType. You can add necessary tests by overriding the base methods.
-````
-public class NewTestResource implements ResourceType {
-...
-}
-
-````
-
-## Contribute
-
-Please read [Contributing](http://wso2.github.io/) to the CodeBase for details on our code of conduct, and the 
-process for submitting pull requests to us.
-
-###  Reporting issues
-We encourage you to report issues, improvements, and feature requests creating Github [Issues](https://github.com/wso2-incubator/scim2-compliance-test-suite/issues).
-
-## License
-This project is licensed under Apache License 2.0. See the [LICENSE](https://github.com/wso2-incubator/scim2-compliance-test-suite/blob/master/LICENSE) file for details.
-
+```bash
+git checkout main
+git branch -D tmp-release
+mvn versions:set -DnewVersion=1.1-NX03-SNAPSHOT -DgenerateBackupPoms=false
+git commit -a -m "Post release 1.1-NX02"
+git push
+```
