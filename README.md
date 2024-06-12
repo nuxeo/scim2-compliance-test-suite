@@ -83,10 +83,10 @@ Then, push the tag:
 git push --tags
 ```
 
-Finally clean up your branch and prepare the next development iteration:
+Finally, clean up your branch and prepare the next development iteration:
 
 ```bash
-git checkout main
+git checkout test-suite-v2
 git branch -D tmp-release
 mvn versions:set -DnewVersion=1.1-NX03-SNAPSHOT -DgenerateBackupPoms=false
 git commit -a -m "Post release 1.1-NX02"
