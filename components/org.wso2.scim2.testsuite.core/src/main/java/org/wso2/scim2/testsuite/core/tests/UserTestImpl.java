@@ -18,6 +18,11 @@
 
 package org.wso2.scim2.testsuite.core.tests;
 
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
+
 import org.apache.commons.lang.StringUtils;
 import org.apache.http.Header;
 import org.apache.http.HttpEntity;
@@ -51,11 +56,6 @@ import org.wso2.scim2.testsuite.core.protocol.ComplianceUtils;
 import org.wso2.scim2.testsuite.core.tests.common.ResponseValidateTests;
 import org.wso2.scim2.testsuite.core.tests.model.RequestPath;
 import org.wso2.scim2.testsuite.core.utils.ComplianceConstants;
-
-import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
 
 /**
  * Implementation of User test cases.
@@ -727,7 +727,7 @@ public class UserTestImpl implements ResourceType {
                     case "Sort users by user id without pagination and " +
                             "filtering params":
                         try {
-                            if (isUserListSorted(userList)) {
+                            if (!isUserListSorted(userList)) {
                                 addAssertion(ComplianceConstants.TestConstants.SORT_USERS_TEST,
                                         "Check the created 5 users are sorted or not.",
                                         ComplianceConstants.TestConstants.STATUS_FAILED, subTests);
