@@ -18,6 +18,13 @@
 
 package org.wso2.scim2.testsuite.core.utils;
 
+import static org.wso2.charon3.core.schema.SCIMConstants.LISTED_RESOURCE_CORE_SCHEMA_URI;
+import static org.wso2.charon3.core.schema.SCIMConstants.CommonSchemaConstants.SCHEMAS;
+import static org.wso2.charon3.core.schema.SCIMConstants.CommonSchemaConstants.TOTAL_RESULTS;
+
+import java.util.ArrayList;
+import java.util.Collections;
+
 import org.apache.commons.lang.StringUtils;
 import org.apache.http.client.methods.HttpGet;
 import org.json.JSONArray;
@@ -33,9 +40,6 @@ import org.wso2.scim2.testsuite.core.exception.ComplianceException;
 import org.wso2.scim2.testsuite.core.exception.CriticalComplianceException;
 import org.wso2.scim2.testsuite.core.objects.SCIMSchema;
 import org.wso2.scim2.testsuite.core.protocol.ComplianceUtils;
-
-import java.util.ArrayList;
-import java.util.Collections;
 
 /**
  * This class build schema representations using the /Schema Endpoint.
@@ -65,9 +69,26 @@ public class SchemaBuilder {
             throws ComplianceException, CriticalComplianceException {
 
         try {
-            JSONArray jsonArray = new JSONArray(jsonSchema);
-            for (int i = 0; i < jsonArray.length(); i++) {
-                JSONObject resourceObject = jsonArray.getJSONObject(i);
+            JSONObject jsonObject = new JSONObject(jsonSchema);
+            JSONArray schemasArray = jsonObject.getJSONArray(SCHEMAS);
+            if (schemasArray.length() != 1 || !LISTED_RESOURCE_CORE_SCHEMA_URI.equals(schemasArray.getString(0))) {
+                throw new CriticalComplianceException(new TestResult
+                        (TestResult.ERROR, ComplianceConstants.TestConstants.GET_SCHEMAS,
+                                "Could not get schema at url " + url,
+                                ComplianceUtils.getWire(method, jsonSchema,
+                                        headerString, responseStatus, subTests)));
+            }
+            int totalResult = jsonObject.getInt(TOTAL_RESULTS);
+            if (totalResult != 2) {
+                throw new CriticalComplianceException(new TestResult
+                        (TestResult.ERROR, ComplianceConstants.TestConstants.GET_SCHEMAS,
+                                "Could not get schema at url " + url,
+                                ComplianceUtils.getWire(method, jsonSchema,
+                                        headerString, responseStatus, subTests)));
+            }
+            JSONArray resourcesArray = jsonObject.getJSONArray("Resources");
+            for (int i = 0; i < resourcesArray.length(); i++) {
+                JSONObject resourceObject = resourcesArray.getJSONObject(i);
                 String resourceId;
                 try {
                     resourceId = resourceObject.optString("id");
