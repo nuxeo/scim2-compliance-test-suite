@@ -331,7 +331,7 @@ public class UserTestImpl implements ResourceType {
         requestPath8.setTestCaseName("Paginate users with positive startIndex and without count param");
 
         RequestPath requestPath9 = new RequestPath();
-        requestPath9.setUrl("?filter=userName+eq+loginUser1");
+        requestPath9.setUrl("?filter=userName+eq+%22loginUser1%22");
         requestPath9.setTestCaseName("List users by filtering - userName eq");
         try {
             requestPath9.setTestSupported(complianceTestMetaDataHolder.getScimServiceProviderConfig().
@@ -341,7 +341,7 @@ public class UserTestImpl implements ResourceType {
         }
 
         RequestPath requestPath10 = new RequestPath();
-        requestPath10.setUrl("?filter=userName+eq+loginUser1&startIndex=1&count=1");
+        requestPath10.setUrl("?filter=userName+eq+%22loginUser1%22&startIndex=1&count=1");
         requestPath10.setTestCaseName("Filter users by username with pagination params");
         try {
             requestPath10.setTestSupported(complianceTestMetaDataHolder.getScimServiceProviderConfig().
@@ -351,7 +351,7 @@ public class UserTestImpl implements ResourceType {
         }
 
         RequestPath requestPath11 = new RequestPath();
-        requestPath11.setUrl("?filter=userName+eq+loginUser1&startIndex=1");
+        requestPath11.setUrl("?filter=userName+eq+%22loginUser1%22&startIndex=1");
         requestPath11.setTestCaseName("List users by filtering - userName eq with only using startIndex");
         try {
             requestPath11.setTestSupported(complianceTestMetaDataHolder.getScimServiceProviderConfig().
@@ -361,7 +361,7 @@ public class UserTestImpl implements ResourceType {
         }
 
         RequestPath requestPath12 = new RequestPath();
-        requestPath12.setUrl("?filter=userName+eq+loginUser1+and+emails.type+eq+work");
+        requestPath12.setUrl("?filter=userName+eq+%22loginUser1%22+and+emails.type+eq+%22work%22");
         requestPath12.setTestCaseName("List users by filtering - userName eq and emails.type");
         try {
             requestPath12.setTestSupported(complianceTestMetaDataHolder.getScimServiceProviderConfig().
@@ -371,7 +371,7 @@ public class UserTestImpl implements ResourceType {
         }
 
         RequestPath requestPath13 = new RequestPath();
-        requestPath13.setUrl("?filter=USERNAME+eq+loginUser1");
+        requestPath13.setUrl("?filter=USERNAME+eq+%22loginUser1%22");
         requestPath13.setTestCaseName("List users by filtering - userName eq to check case insensitivity of attribute");
         try {
             requestPath13.setTestSupported(complianceTestMetaDataHolder.getScimServiceProviderConfig().
@@ -381,7 +381,7 @@ public class UserTestImpl implements ResourceType {
         }
 
         RequestPath requestPath14 = new RequestPath();
-        requestPath14.setUrl("?filter=userName+EQ+loginUser1");
+        requestPath14.setUrl("?filter=userName+EQ+%22loginUser1%22");
         requestPath14.setTestCaseName("List users by filtering - userName eq to check case insensitivity of operator");
         try {
             requestPath14.setTestSupported(complianceTestMetaDataHolder.getScimServiceProviderConfig().
@@ -391,7 +391,7 @@ public class UserTestImpl implements ResourceType {
         }
 
         RequestPath requestPath15 = new RequestPath();
-        requestPath15.setUrl("?filter=userName+ne+loginUser1");
+        requestPath15.setUrl("?filter=userName+ne+%22loginUser1%22");
         requestPath15.setTestCaseName("List users by filtering - userName ne");
         try {
             requestPath15.setTestSupported(complianceTestMetaDataHolder.getScimServiceProviderConfig().
@@ -401,7 +401,7 @@ public class UserTestImpl implements ResourceType {
         }
 
         RequestPath requestPath16 = new RequestPath();
-        requestPath16.setUrl("?filter=userName+co+loginUser1");
+        requestPath16.setUrl("?filter=userName+co+%22loginUser1%22");
         requestPath16.setTestCaseName("List users by filtering - userName co");
         try {
             requestPath16.setTestSupported(complianceTestMetaDataHolder.getScimServiceProviderConfig().
@@ -411,7 +411,7 @@ public class UserTestImpl implements ResourceType {
         }
 
         RequestPath requestPath17 = new RequestPath();
-        requestPath17.setUrl("?filter=userName+sw+loginUser1");
+        requestPath17.setUrl("?filter=userName+sw+%22loginUser1%22");
         requestPath17.setTestCaseName("List users by filtering - userName sw");
         try {
             requestPath17.setTestSupported(complianceTestMetaDataHolder.getScimServiceProviderConfig().
@@ -421,7 +421,7 @@ public class UserTestImpl implements ResourceType {
         }
 
         RequestPath requestPath18 = new RequestPath();
-        requestPath18.setUrl("?filter=userName+ew+loginUser1");
+        requestPath18.setUrl("?filter=userName+ew+%22loginUser1%22");
         requestPath18.setTestCaseName("List users by filtering - userName ew");
         try {
             requestPath18.setTestSupported(complianceTestMetaDataHolder.getScimServiceProviderConfig().
@@ -431,7 +431,7 @@ public class UserTestImpl implements ResourceType {
         }
 
         RequestPath requestPath19 = new RequestPath();
-        requestPath19.setUrl("?filter=userName+pr+loginUser1");
+        requestPath19.setUrl("?filter=userName+pr+%22loginUser1%22");
         requestPath19.setTestCaseName("List users by filtering - userName pr");
         try {
             requestPath19.setTestSupported(complianceTestMetaDataHolder.getScimServiceProviderConfig().
