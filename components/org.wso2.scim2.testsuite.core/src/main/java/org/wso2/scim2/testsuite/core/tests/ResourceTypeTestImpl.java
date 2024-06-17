@@ -18,6 +18,13 @@
 
 package org.wso2.scim2.testsuite.core.tests;
 
+import static org.wso2.charon3.core.schema.SCIMConstants.LISTED_RESOURCE_CORE_SCHEMA_URI;
+import static org.wso2.charon3.core.schema.SCIMConstants.CommonSchemaConstants.SCHEMAS;
+import static org.wso2.charon3.core.schema.SCIMConstants.CommonSchemaConstants.TOTAL_RESULTS;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import org.apache.commons.lang.StringUtils;
 import org.apache.http.Header;
 import org.apache.http.HttpResponse;
@@ -25,12 +32,18 @@ import org.apache.http.HttpStatus;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.BasicResponseHandler;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.wso2.charon3.core.encoder.JSONDecoder;
 import org.wso2.charon3.core.exceptions.BadRequestException;
 import org.wso2.charon3.core.exceptions.CharonException;
 import org.wso2.charon3.core.exceptions.InternalErrorException;
-import org.wso2.charon3.core.schema.SCIMResourceSchemaManager;
+import org.wso2.charon3.core.schema.SCIMAttributeSchema;
+import org.wso2.charon3.core.schema.SCIMConstants;
+import org.wso2.charon3.core.schema.SCIMDefinitions;
 import org.wso2.charon3.core.schema.SCIMResourceTypeSchema;
+import org.wso2.charon3.core.schema.SCIMSchemaDefinitions;
+import org.wso2.charon3.core.schema.SCIMSchemaDefinitions.SCIMResourceTypeSchemaDefinition;
 import org.wso2.scim2.testsuite.core.entities.TestResult;
 import org.wso2.scim2.testsuite.core.exception.ComplianceException;
 import org.wso2.scim2.testsuite.core.exception.GeneralComplianceException;
@@ -40,8 +53,6 @@ import org.wso2.scim2.testsuite.core.protocol.ComplianceTestMetaDataHolder;
 import org.wso2.scim2.testsuite.core.protocol.ComplianceUtils;
 import org.wso2.scim2.testsuite.core.tests.common.ResponseValidateTests;
 import org.wso2.scim2.testsuite.core.utils.ComplianceConstants;
-
-import java.util.ArrayList;
 
 /**
  * Implementation of ResourceType test cases.
@@ -126,7 +137,7 @@ public class ResourceTypeTestImpl implements ResourceType {
             long stopTime = System.currentTimeMillis();
             testResults.add(new TestResult
                     (TestResult.ERROR, ComplianceConstants.TestConstants.GET_RESOURCETYPE,
-                            "Could not get ResourceType at url " + url,
+                            "Could not get ResourceTypes at url " + url,
                             ComplianceUtils.getWire(method, responseString,
                                     headerString.toString(), responseStatus, subTests), stopTime - startTime));
             errorOccurred = true;
@@ -136,47 +147,84 @@ public class ResourceTypeTestImpl implements ResourceType {
             addAssertion(response.getStatusLine().getStatusCode(), ComplianceConstants.TestConstants.STATUS_SUCCESS,
                     subTests);
             // Obtain the schema corresponding to resourceType.
-            SCIMResourceTypeSchema schema = SCIMResourceSchemaManager.
-                    getInstance().getResourceTypeResourceSchema();
+            SCIMAttributeSchema schemaExtensions =
+                    SCIMAttributeSchema.createSCIMAttributeSchema(
+                            SCIMConstants.ResourceTypeSchemaConstants.SCHEMA_EXTENSIONS_URI,
+                            SCIMConstants.ResourceTypeSchemaConstants.SCHEMA_EXTENSIONS,
+                            SCIMDefinitions.DataType.COMPLEX, true,
+                            SCIMConstants.ResourceTypeSchemaConstants.SCHEMA_EXTENSIONS_DESC, false, false,
+                            SCIMDefinitions.Mutability.READ_ONLY, SCIMDefinitions.Returned.DEFAULT,
+                            SCIMDefinitions.Uniqueness.NONE, null, null,
+                            new ArrayList<>(Arrays.asList(SCIMResourceTypeSchemaDefinition.SCHEMA_EXTENSION_SCHEMA,
+                                    SCIMResourceTypeSchemaDefinition.SCHEMA_EXTENSION_REQUIRED)));
+            SCIMResourceTypeSchema schema = SCIMResourceTypeSchema.createSCIMResourceSchema(
+                    Arrays.asList(SCIMConstants.RESOURCE_TYPE_SCHEMA_URI), SCIMSchemaDefinitions.META,
+                    SCIMResourceTypeSchemaDefinition.ID,
+                    SCIMResourceTypeSchemaDefinition.NAME,
+                    SCIMResourceTypeSchemaDefinition.ENDPOINT,
+                    SCIMResourceTypeSchemaDefinition.DESCRIPTION,
+                    SCIMResourceTypeSchemaDefinition.SCHEMA,
+                    schemaExtensions);
             JSONDecoder jsonDecoder = new JSONDecoder();
-            try {
-                scimResourceType =
-                        jsonDecoder.decodeResource(responseString, schema,
-                                new SCIMResourceType());
-                complianceTestMetaDataHolder.setScimResourceType(scimResourceType);
-            } catch (BadRequestException | CharonException | InternalErrorException e) {
-                long stopTime = System.currentTimeMillis();
-                testResults.add(new TestResult(TestResult.ERROR,
-                        ComplianceConstants.TestConstants.GET_RESOURCETYPE,
-                        "Could not decode the server response",
-                        ComplianceUtils.getWire(method, responseString, headerString.toString(), responseStatus,
-                                subTests), stopTime - startTime));
-                errorOccurred = true;
+            JSONObject jsonObject = new JSONObject(responseString);
+            JSONArray schemasArray = jsonObject.getJSONArray(SCHEMAS);
+            if (schemasArray.length() != 1 || !LISTED_RESOURCE_CORE_SCHEMA_URI.equals(schemasArray.getString(0))) {
+                testResults.add(new TestResult
+                        (TestResult.ERROR, ComplianceConstants.TestConstants.GET_RESOURCETYPE,
+                                "Could not get ResourceTypes at url " + url,
+                                ComplianceUtils.getWire(method, responseString,
+                                        headerString.toString(), responseStatus, subTests)));
             }
-            try {
-                ResponseValidateTests.runValidateTests(scimResourceType, schema, null,
-                        null, method,
-                        responseString, headerString.toString(), responseStatus, subTests);
-            } catch (BadRequestException | CharonException e) {
-                subTests.add(ComplianceConstants.TestConstants.STATUS_FAILED);
-                subTests.add(StringUtils.EMPTY);
-                long stopTime = System.currentTimeMillis();
-                testResults.add(new TestResult(TestResult.ERROR,
-                        ComplianceConstants.TestConstants.GET_RESOURCETYPE,
-                        "Response Validation Error",
-                        ComplianceUtils.getWire(method, responseString, headerString.toString(), responseStatus,
-                                subTests), stopTime - startTime));
-                errorOccurred = true;
-            } catch (GeneralComplianceException e) {
-                // Separately catching exception to get descriptive message from GeneralComplianceException.
-                subTests.add(ComplianceConstants.TestConstants.STATUS_FAILED);
-                subTests.add(StringUtils.EMPTY);
-                long stopTime = System.currentTimeMillis();
-                testResults.add(new TestResult(TestResult.ERROR,
-                        ComplianceConstants.TestConstants.GET_RESOURCETYPE,
-                        e.getResult().getMessage(), ComplianceUtils.getWire(method,
-                        responseString, headerString.toString(), responseStatus, subTests), stopTime - startTime));
-                errorOccurred = true;
+            int totalResult = jsonObject.getInt(TOTAL_RESULTS);
+            if (totalResult != 2) {
+                testResults.add(new TestResult
+                        (TestResult.ERROR, ComplianceConstants.TestConstants.GET_RESOURCETYPE,
+                                "CCould not get ResourceTypes at url " + url,
+                                ComplianceUtils.getWire(method, responseString,
+                                        headerString.toString(), responseStatus, subTests)));
+            }
+            JSONArray resourcesArray = jsonObject.getJSONArray("Resources");
+            for (int i = 0; i < resourcesArray.length(); i++) {
+                JSONObject resourceObject = resourcesArray.getJSONObject(i);
+                try {
+                    scimResourceType =
+                            jsonDecoder.decodeResource(resourceObject.toString(), schema,
+                                    new SCIMResourceType());
+                    complianceTestMetaDataHolder.setScimResourceType(scimResourceType);
+                } catch (BadRequestException | CharonException | InternalErrorException e) {
+                    long stopTime = System.currentTimeMillis();
+                    testResults.add(new TestResult(TestResult.ERROR,
+                            ComplianceConstants.TestConstants.GET_RESOURCETYPE,
+                            "Could not decode the server response",
+                            ComplianceUtils.getWire(method, responseString, headerString.toString(), responseStatus,
+                                    subTests), stopTime - startTime));
+                    errorOccurred = true;
+                }
+                try {
+                    ResponseValidateTests.runValidateTests(scimResourceType, schema, null,
+                            null, method,
+                            responseString, headerString.toString(), responseStatus, subTests);
+                } catch (BadRequestException | CharonException e) {
+                    subTests.add(ComplianceConstants.TestConstants.STATUS_FAILED);
+                    subTests.add(StringUtils.EMPTY);
+                    long stopTime = System.currentTimeMillis();
+                    testResults.add(new TestResult(TestResult.ERROR,
+                            ComplianceConstants.TestConstants.GET_RESOURCETYPE,
+                            "Response Validation Error",
+                            ComplianceUtils.getWire(method, responseString, headerString.toString(), responseStatus,
+                                    subTests), stopTime - startTime));
+                    errorOccurred = true;
+                } catch (GeneralComplianceException e) {
+                    // Separately catching exception to get descriptive message from GeneralComplianceException.
+                    subTests.add(ComplianceConstants.TestConstants.STATUS_FAILED);
+                    subTests.add(StringUtils.EMPTY);
+                    long stopTime = System.currentTimeMillis();
+                    testResults.add(new TestResult(TestResult.ERROR,
+                            ComplianceConstants.TestConstants.GET_RESOURCETYPE,
+                            e.getResult().getMessage(), ComplianceUtils.getWire(method,
+                            responseString, headerString.toString(), responseStatus, subTests), stopTime - startTime));
+                    errorOccurred = true;
+                }
             }
             if (!errorOccurred) {
                 long stopTime = System.currentTimeMillis();
