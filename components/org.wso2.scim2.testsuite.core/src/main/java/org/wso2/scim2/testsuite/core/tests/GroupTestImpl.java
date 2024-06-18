@@ -499,7 +499,7 @@ public class GroupTestImpl implements ResourceType {
         requestPath8.setTestCaseName("List groups with only using startIndex");
 
         RequestPath requestPath9 = new RequestPath();
-        requestPath9.setUrl("?filter=displayName+eq+EYtXcD21&startIndex=1&count=1");
+        requestPath9.setUrl("?filter=displayName+eq+%22EYtXcD21%22&startIndex=1&count=1");
         requestPath9.setTestCaseName("Get groups with displayName as filter and with pagination");
         try {
             requestPath9.setTestSupported(
@@ -509,7 +509,7 @@ public class GroupTestImpl implements ResourceType {
         }
 
         RequestPath requestPath10 = new RequestPath();
-        requestPath10.setUrl("?filter=displayName+eq+EYtXcD21");
+        requestPath10.setUrl("?filter=displayName+eq+%22EYtXcD21%22");
         requestPath10.setTestCaseName("Get groups with displayName as filter");
         try {
             requestPath10.setTestSupported(
@@ -519,7 +519,7 @@ public class GroupTestImpl implements ResourceType {
         }
 
         RequestPath requestPath11 = new RequestPath();
-        requestPath11.setUrl("?filter=displayName+eq+EYtXcD21&startIndex=1");
+        requestPath11.setUrl("?filter=displayName+eq+%22EYtXcD21%22&startIndex=1");
         requestPath11.setTestCaseName("List groups by filtering - displayName eq with only using startIndex");
         try {
             requestPath11.setTestSupported(
@@ -529,7 +529,7 @@ public class GroupTestImpl implements ResourceType {
         }
 
         RequestPath requestPath12 = new RequestPath();
-        requestPath12.setUrl("?filter=DISPLAYNAME+eq+EYtXcD21");
+        requestPath12.setUrl("?filter=DISPLAYNAME+eq+%22EYtXcD21%22");
         requestPath12.setTestCaseName(
                 "List groups by filtering - displayName eq to check case insensitivity of " + "attribute");
         try {
@@ -540,7 +540,7 @@ public class GroupTestImpl implements ResourceType {
         }
 
         RequestPath requestPath13 = new RequestPath();
-        requestPath13.setUrl("?filter=displayName+EQ+EYtXcD21");
+        requestPath13.setUrl("?filter=displayName+EQ+%22EYtXcD21%22");
         requestPath13.setTestCaseName(
                 "List groups by filtering - displayName eq to check case insensitivity of " + "operator");
         try {
@@ -551,7 +551,7 @@ public class GroupTestImpl implements ResourceType {
         }
 
         RequestPath requestPath14 = new RequestPath();
-        requestPath14.setUrl("?filter=displayName+ne+EYtXcD21");
+        requestPath14.setUrl("?filter=displayName+ne+%22EYtXcD21%22");
         requestPath14.setTestCaseName("List groups by filtering - displayName ne");
         try {
             requestPath14.setTestSupported(
@@ -561,7 +561,7 @@ public class GroupTestImpl implements ResourceType {
         }
 
         RequestPath requestPath15 = new RequestPath();
-        requestPath15.setUrl("?filter=displayName+co+EYtXcD21");
+        requestPath15.setUrl("?filter=displayName+co+%22EYtXcD21%22");
         requestPath15.setTestCaseName("List groups by filtering - displayName co");
         try {
             requestPath15.setTestSupported(
@@ -571,7 +571,7 @@ public class GroupTestImpl implements ResourceType {
         }
 
         RequestPath requestPath16 = new RequestPath();
-        requestPath16.setUrl("?filter=displayName+sw+EYtXcD21");
+        requestPath16.setUrl("?filter=displayName+sw+%22EYtXcD21%22");
         requestPath16.setTestCaseName("List groups by filtering - displayName sw");
         try {
             requestPath16.setTestSupported(
@@ -581,7 +581,7 @@ public class GroupTestImpl implements ResourceType {
         }
 
         RequestPath requestPath17 = new RequestPath();
-        requestPath17.setUrl("?filter=displayName+ew+EYtXcD21");
+        requestPath17.setUrl("?filter=displayName+ew+%22EYtXcD21%22");
         requestPath17.setTestCaseName("List groups by filtering - displayName ew");
         try {
             requestPath17.setTestSupported(
@@ -591,7 +591,7 @@ public class GroupTestImpl implements ResourceType {
         }
 
         RequestPath requestPath18 = new RequestPath();
-        requestPath18.setUrl("?filter=displayName+pr+EYtXcD21");
+        requestPath18.setUrl("?filter=displayName+pr");
         requestPath18.setTestCaseName("List groups by filtering - displayName pr");
         try {
             requestPath18.setTestSupported(
@@ -604,7 +604,6 @@ public class GroupTestImpl implements ResourceType {
         requestPaths = new RequestPath[] { requestPath1, requestPath2, requestPath3, requestPath4, requestPath5,
                 requestPath6, requestPath7, requestPath8, requestPath9, requestPath10, requestPath11, requestPath12,
                 requestPath13, requestPath14, requestPath15, requestPath16, requestPath17, requestPath18 };
-
         for (RequestPath requestPath : requestPaths) {
             long startTime = System.currentTimeMillis();
             String requestUrl = url + requestPath.getUrl();
@@ -782,7 +781,7 @@ public class GroupTestImpl implements ResourceType {
                         break;
                     case "Get groups with group id sorting and " + "ascending order":
                         try {
-                            if (isGroupListSorted(groupList)) {
+                            if (!isGroupListSorted(groupList)) {
                                 addAssertion(ComplianceConstants.TestConstants.SORT_GROUPS_TEST,
                                         "Check created groups are sorted or not.",
                                         ComplianceConstants.TestConstants.STATUS_FAILED, subTests);
