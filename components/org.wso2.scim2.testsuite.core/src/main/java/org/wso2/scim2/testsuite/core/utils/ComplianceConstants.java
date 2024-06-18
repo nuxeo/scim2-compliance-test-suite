@@ -249,39 +249,38 @@ public class ComplianceConstants {
 
         public static String definedSearchUsersPayload1 =
                 "{\"schemas\":[\"urn:ietf:params:scim:api:messages:2.0:SearchRequest\"],\"attributes\":[\"name" +
-                        ".familyName\",\"userName\"],\"filter\":\"userName sw login\"," +
-                        "\"domain\": \"PRIMARY\",\"startIndex\":1,\"count\":10}";
+                        ".familyName\",\"userName\"],\"filter\":\"userName sw \\\"login\\\"\"," +
+                        "\"startIndex\":1,\"count\":10}";
 
         public static String definedSearchUsersPayload2 =
                 "{\"schemas\":[\"urn:ietf:params:scim:api:messages:2.0:SearchRequest\"],\"attributes\":[\"name" +
-                        ".familyName\",\"userName\"],\"filter\":\"userName ssw login\"," +
-                        "\"domain\": \"PRIMARY\",\"startIndex\":1,\"count\":10}";
+                        ".familyName\",\"userName\"],\"filter\":\"userName ssw \\\"login\\\"\"," +
+                        "\"startIndex\":1,\"count\":10}";
 
         public static String definedSearchUsersPayload3 =
                 "{\"schemas\":[\"urn:ietf:params:scim:api:messages:2.0:SearchRequest\"],\"attributes\":[\"name" +
-                        ".familyName\",\"userName\"],\"filter\":\"userName sw login\"," +
-                        "\"domain\": \"PRIMARY\"}";
+                        ".familyName\",\"userName\"],\"filter\":\"userName sw \\\"login\\\"\"}";
 
         public static String definedSearchUsersPayload4 =
                 "{\"schemas\":[\"urn:ietf:params:scim:api:messages:2.0:SearchRequest\"],\"attributes\":[\"name" +
-                        ".familyName\",\"userName\"],\"filter\":\"userName sw login\"," +
-                        "\"domain\": \"PRIMARY\",\"startIndex\":1}";
+                        ".familyName\",\"userName\"],\"filter\":\"userName sw \\\"login\\\"\"," +
+                        "\"startIndex\":1}";
 
         public static String getDefinedSearchGroupsPayload1 =
                 "{\"schemas\":[\"urn:ietf:params:scim:api:messages:2.0:SearchRequest\"],\"startIndex\":1," +
-                        "\"count\":10,\"filter\":\"displayName eq XwLtOP23\"}";
+                        "\"count\":10,\"filter\":\"displayName eq \\\"XwLtOP23\\\"\"}";
 
         public static String getDefinedSearchGroupsPayload2 =
                 "{\"schemas\":[\"urn:ietf:params:scim:api:messages:2.0:SearchRequest\"],\"startIndex\":1," +
-                        "\"count\":10,\"filter\":\"displayName esq XwLtOP23\"}";
+                        "\"count\":10,\"filter\":\"displayName esq \\\"XwLtOP23\\\"\"}";
 
         public static String getDefinedSearchGroupsPayload3 =
                 "{\"schemas\":[\"urn:ietf:params:scim:api:messages:2.0:SearchRequest\"]," +
-                        "\"filter\":\"displayName eq XwLtOP23\"}";
+                        "\"filter\":\"displayName eq \\\"XwLtOP23\\\"\"}";
 
         public static String getDefinedSearchGroupsPayload4 =
                 "{\"schemas\":[\"urn:ietf:params:scim:api:messages:2.0:SearchRequest\"],\"startIndex\":1," +
-                        "\"filter\":\"displayName eq XwLtOP23\"}";
+                        "\"filter\":\"displayName eq \\\"XwLtOP23\\\"\"}";
 
         public static String defineBulkRequest1 = "{\"failOnErrors\":1,\"schemas\":" +
                 "[\"urn:ietf:params:scim:api:messages:2.0:BulkRequest\"],\"Operations\":" +
