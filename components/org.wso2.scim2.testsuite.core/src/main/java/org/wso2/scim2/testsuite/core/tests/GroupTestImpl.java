@@ -388,7 +388,9 @@ public class GroupTestImpl implements ResourceType {
 
         boolean sorted = true;
         for (int i = 1; i < returnedGroups.size(); i++) {
-            if (returnedGroups.get(i - 1).getId().compareTo(returnedGroups.get(i).getId()) > 0) {
+            String previous = returnedGroups.get(i - 1).getId();
+            String next  = returnedGroups.get(i).getId();
+            if (previous.compareTo(next) > 0 && previous.compareToIgnoreCase(next) > 0) {
                 sorted = false;
             }
         }
