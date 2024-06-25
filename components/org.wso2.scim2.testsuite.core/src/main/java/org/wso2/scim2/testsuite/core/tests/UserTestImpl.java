@@ -231,9 +231,7 @@ public class UserTestImpl implements ResourceType {
 
         boolean sorted = true;
         for (int i = 1; i < userList.size(); i++) {
-            String previous = userList.get(i - 1).getId();
-            String next  = userList.get(i).getId();
-            if (previous.compareTo(next) > 0 && previous.compareToIgnoreCase(next) > 0) {
+            if (userList.get(i - 1).getId().compareTo(userList.get(i).getId()) > 0) {
                 sorted = false;
             }
         }
