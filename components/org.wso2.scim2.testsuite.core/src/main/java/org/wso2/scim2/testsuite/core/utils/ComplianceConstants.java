@@ -249,7 +249,7 @@ public class ComplianceConstants {
                 + "eq \\\"home\\\"]\",\"value\":{\"type\":\"home\",\"value\":\"anjana@anjana.com\"}}]}";
 
         public static String definedPatchUserPayload5 = "{\"schemas\":[\"urn:ietf:params:scim:api:messages:2.0:PatchOp\"],"
-                + "\"Operations\":[{\"op\":\"remove\",\"value\":{\"nickName\":\"shaggy\"}}]}";
+                + "\"Operations\":[{\"op\":\"remove\",\"path\":\"nickName\"}]}";
 
         public static String definedPatchUserPayload6 = "{\n" + "  \"schemas\": [\n"
                 + "    \"urn:ietf:params:scim:api:messages:2.0:PatchOp\"\n" + "  ],\n" + "  \"Operations\": [\n"
