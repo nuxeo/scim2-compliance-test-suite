@@ -1279,16 +1279,16 @@ public class GroupTestImpl implements ResourceType {
                 + "\"Operations\":[{\"op\":\"remove\",\"path\":\"members\"}]}");
         definedPatchedGroup.add("{\"schemas\":[\"urn:ietf:params:scim:api:messages:2.0:PatchOp\"],"
                 + "\"Operations\":[{\"op\":\"replace\",\"value\":{\"members\":[{\"display\":\"loginUser4\",\"value"
-                + "\":\"" + userIDs.get(4) + "\",\"ref\":\"" + complianceTestMetaDataHolder.getUrl()
+                + "\":\"" + userIDs.get(4) + "\",\"$ref\":\"" + complianceTestMetaDataHolder.getUrl()
                 + ComplianceConstants.TestConstants.USERS_ENDPOINT + "/" + userIDs.get(0) + "\"}]}}]}");
         definedPatchedGroup.add("{\"schemas\":[\"urn:ietf:params:scim:api:messages:2.0:PatchOp\"],"
                 + "\"Operations\":[{\"op\":\"remove\",\"path\":\"members\"},{\"op\":\"add\",\"path\":\"members\","
                 + "\"value\":[{\"display\":\"loginUser1\",\"value\":\"" + userIDs.get(0) + "\"}]},"
                 + "{\"op\":\"replace\",\"path\":\"members\",\"value\":[{\"display\":\"loginUser1\",\"value\":\""
-                + userIDs.get(0) + "\",\"ref\":\"" + complianceTestMetaDataHolder.getUrl()
+                + userIDs.get(0) + "\",\"$ref\":\"" + complianceTestMetaDataHolder.getUrl()
                 + ComplianceConstants.TestConstants.USERS_ENDPOINT + "/" + userIDs.get(0) + "\"}]}]}");
         definedPatchedGroup.add("{\"schemas\":[\"urn:ietf:params:scim:api:messages:2.0:PatchOp\"],"
-                + "\"Operations\":[{\"op\":\"remove\",\"pah\":\"members\"}]}");
+                + "\"Operations\":[{\"op\":\"remove\",\"path\":\"members\"}]}");
         definedPatchedGroup.add("{\"schemas\":[\"urn:ietf:params:scim:api:messages:2.0:PatchOp\"],"
                 + "\"Operations\":[{\"op\":\"add\",\"value\":{\"displayName\": \"XwLtOP23-patchNonExistingGroup\"}}]}");
 
