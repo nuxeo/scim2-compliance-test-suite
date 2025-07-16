@@ -16,20 +16,15 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <javax.servlet-api.version>2.4</javax.servlet-api.version>
-        <commons-validator.version>1.4.0</commons-validator.version>
-        <commons-lang.version>2.2</commons-lang.version>
-        <commons-logging.version>1.1.1</commons-logging.version>
-        <commons-configuration.version>1.6</commons-configuration.version>
+        <commons-lang3.version>3.18.0</commons-lang3.version>
+        <commons-logging.version>1.3.5</commons-logging.version>
         <jetty-servlet-tester.version>7.0.0.pre5</jetty-servlet-tester.version>
-        <commons-httpclient.version>3.1</commons-httpclient.version>
-        <commons-fileupload.version>1.2.2</commons-fileupload.version>
-        <commons-io.version>2.0.1</commons-io.version>
         <jersy-json.version>1.8</jersy-json.version>
         <jersy-server.version>1.8</jersy-server.version>
         <javax.jsr173_api.version>1.0</javax.jsr173_api.version>
         <apache.xmlbeans.version>2.4.0</apache.xmlbeans.version>
         <org.wso2.charon3.core.version>3.3.30</org.wso2.charon3.core.version>
-        <apache.httpclient.version>4.5.3</apache.httpclient.version>
+        <apache.httpclient.version>4.5.14</apache.httpclient.version>
         <apache.pdfbox.version>2.0.7</apache.pdfbox.version>
         <apache.pdfbox.fontbox.version>2.0.7</apache.pdfbox.fontbox.version>
         <apache.pdfbox-tools.version>2.0.7</apache.pdfbox-tools.version>
@@ -126,14 +121,9 @@
                 <scope>provided</scope>
             </dependency>
             <dependency>
-                <groupId>commons-validator</groupId>
-                <artifactId>commons-validator</artifactId>
-                <version>${commons-validator.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>commons-lang</groupId>
-                <artifactId>commons-lang</artifactId>
-                <version>${commons-lang.version}</version>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-lang3</artifactId>
+                <version>${commons-lang3.version}</version>
                 <scope>compile</scope>
             </dependency>
             <dependency>
@@ -143,30 +133,10 @@
                 <scope>compile</scope>
             </dependency>
             <dependency>
-                <groupId>commons-configuration</groupId>
-                <artifactId>commons-configuration</artifactId>
-                <version>${commons-configuration.version}</version>
-            </dependency>
-            <dependency>
                 <groupId>org.mortbay.jetty</groupId>
                 <artifactId>jetty-servlet-tester</artifactId>
                 <version>${jetty-servlet-tester.version}</version>
                 <scope>compile</scope>
-            </dependency>
-            <dependency>
-                <groupId>commons-httpclient</groupId>
-                <artifactId>commons-httpclient</artifactId>
-                <version>${commons-httpclient.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>commons-fileupload</groupId>
-                <artifactId>commons-fileupload</artifactId>
-                <version>${commons-fileupload.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>commons-io</groupId>
-                <artifactId>commons-io</artifactId>
-                <version>${commons-io.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.sun.jersey</groupId>
@@ -194,6 +164,12 @@
                 <groupId>org.wso2.charon</groupId>
                 <artifactId>org.wso2.charon3.core</artifactId>
                 <version>${org.wso2.charon3.core.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>commons-lang</groupId>
+                        <artifactId>commons-lang</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
             <dependency>
                 <groupId>org.apache.httpcomponents</groupId>

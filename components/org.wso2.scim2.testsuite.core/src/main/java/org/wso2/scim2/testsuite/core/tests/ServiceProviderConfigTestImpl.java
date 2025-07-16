@@ -20,7 +20,7 @@ package org.wso2.scim2.testsuite.core.tests;
 
 import java.util.ArrayList;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.http.Header;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;

@@ -20,7 +20,7 @@ package org.wso2.scim2.testsuite.core.entities;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * Implementation of result.

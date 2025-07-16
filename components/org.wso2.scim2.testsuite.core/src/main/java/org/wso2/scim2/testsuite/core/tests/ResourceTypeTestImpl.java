@@ -25,7 +25,7 @@ import static org.wso2.charon3.core.schema.SCIMConstants.CommonSchemaConstants.T
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.http.Header;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
