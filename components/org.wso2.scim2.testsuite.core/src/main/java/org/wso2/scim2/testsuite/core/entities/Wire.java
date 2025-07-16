@@ -17,7 +17,7 @@
  */
 package org.wso2.scim2.testsuite.core.entities;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * Provide functionality to store request data and response data.

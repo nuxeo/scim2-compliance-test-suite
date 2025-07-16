@@ -21,8 +21,8 @@ import java.util.ArrayList;
 
 import javax.ws.rs.HttpMethod;
 
-import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.exception.ExceptionUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpEntityEnclosingRequest;
 import org.apache.http.client.methods.HttpRequestBase;
@@ -92,7 +92,7 @@ public class ComplianceUtils {
     }
 
     public static Wire getWire(Throwable e) {
-        return new Wire(ExceptionUtils.getFullStackTrace(e), StringUtils.EMPTY, StringUtils.EMPTY, StringUtils.EMPTY
+        return new Wire(ExceptionUtils.getStackTrace(e), StringUtils.EMPTY, StringUtils.EMPTY, StringUtils.EMPTY
                 , StringUtils.EMPTY, StringUtils.EMPTY, StringUtils.EMPTY, StringUtils.EMPTY, StringUtils.EMPTY,
                 StringUtils.EMPTY);
     }

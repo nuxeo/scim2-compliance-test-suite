@@ -18,7 +18,7 @@
 
 package org.wso2.scim2.testsuite.core.tests.model;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * Implementation of  URL builder.
