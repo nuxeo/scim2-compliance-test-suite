@@ -18,6 +18,9 @@
 
 package org.wso2.scim2.testsuite.core.tests;
 
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+
 import org.apache.commons.lang.StringUtils;
 import org.apache.http.Header;
 import org.apache.http.HttpEntity;
@@ -47,9 +50,6 @@ import org.wso2.scim2.testsuite.core.protocol.ComplianceUtils;
 import org.wso2.scim2.testsuite.core.tests.common.ResponseValidateTests;
 import org.wso2.scim2.testsuite.core.tests.model.RequestPath;
 import org.wso2.scim2.testsuite.core.utils.ComplianceConstants;
-
-import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
 
 /**
  * Implementation of Me test cases.

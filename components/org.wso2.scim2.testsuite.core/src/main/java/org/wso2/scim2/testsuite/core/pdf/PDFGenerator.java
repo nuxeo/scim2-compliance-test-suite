@@ -18,6 +18,14 @@
 
 package org.wso2.scim2.testsuite.core.pdf;
 
+import java.awt.Color;
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
+
 import org.apache.commons.lang.StringUtils;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
@@ -30,14 +38,6 @@ import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
 import org.wso2.scim2.testsuite.core.entities.Result;
 import org.wso2.scim2.testsuite.core.entities.TestResult;
-
-import java.awt.Color;
-import java.io.File;
-import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
 
 /**
  * This class handle the PDF report generation for the test suite.

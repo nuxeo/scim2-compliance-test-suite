@@ -17,6 +17,10 @@
  */
 package org.wso2.scim2.testsuite.core.protocol;
 
+import java.util.ArrayList;
+
+import javax.ws.rs.HttpMethod;
+
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.apache.http.HttpEntity;
@@ -25,9 +29,6 @@ import org.apache.http.client.methods.HttpRequestBase;
 import org.apache.http.util.EntityUtils;
 import org.wso2.scim2.testsuite.core.entities.Wire;
 import org.wso2.scim2.testsuite.core.exception.ComplianceException;
-
-import java.util.ArrayList;
-import javax.ws.rs.HttpMethod;
 
 /**
  * This class contains utils used in the test suite.

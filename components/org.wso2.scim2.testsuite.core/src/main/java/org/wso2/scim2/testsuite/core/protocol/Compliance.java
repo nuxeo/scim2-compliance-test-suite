@@ -18,6 +18,9 @@
 
 package org.wso2.scim2.testsuite.core.protocol;
 
+import java.io.IOException;
+import java.util.ArrayList;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.wso2.scim2.testsuite.core.entities.Result;
@@ -26,9 +29,6 @@ import org.wso2.scim2.testsuite.core.entities.TestResult;
 import org.wso2.scim2.testsuite.core.pdf.PDFGenerator;
 import org.wso2.scim2.testsuite.core.tests.ResourceType;
 import org.wso2.scim2.testsuite.core.utils.ComplianceConstants;
-
-import java.io.IOException;
-import java.util.ArrayList;
 
 /**
  * This class invoke all tests in compliance test suite.

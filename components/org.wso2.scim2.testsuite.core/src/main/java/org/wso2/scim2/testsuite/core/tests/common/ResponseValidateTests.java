@@ -17,6 +17,11 @@
  */
 package org.wso2.scim2.testsuite.core.tests.common;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
+
 import org.apache.commons.lang.StringUtils;
 import org.apache.http.client.methods.HttpRequestBase;
 import org.wso2.charon3.core.attributes.AbstractAttribute;
@@ -35,11 +40,6 @@ import org.wso2.scim2.testsuite.core.exception.ComplianceException;
 import org.wso2.scim2.testsuite.core.exception.GeneralComplianceException;
 import org.wso2.scim2.testsuite.core.protocol.ComplianceUtils;
 import org.wso2.scim2.testsuite.core.utils.ComplianceConstants;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
 
 /**
  * This contains the validation tests common to all the other main test cases.
@@ -485,7 +485,7 @@ public class ResponseValidateTests {
         } else if (attribute instanceof ComplexAttribute) {
             // Complex attributes have sub attribute map, hence need conversion to arraylist.
             subAttributes = new ArrayList<Attribute>
-                    (((Map) (((ComplexAttribute) attribute).getSubAttributesList())).values());
+                    ((((ComplexAttribute) attribute).getSubAttributesList()).values());
             for (Attribute subAttribute : subAttributes) {
                 if (requestedAttributes.contains(attribute.getName() + "." + subAttribute.getName())) {
                     return true;
@@ -534,7 +534,7 @@ public class ResponseValidateTests {
         } else if (parentAttribute instanceof ComplexAttribute) {
             // Complex attributes have sub attribute map, hence need conversion to arraylist.
             subAttributes = new ArrayList<Attribute>
-                    (((Map) (((ComplexAttribute) parentAttribute).getSubAttributesList())).values());
+                    ((((ComplexAttribute) parentAttribute).getSubAttributesList()).values());
             for (Attribute subAttribute : subAttributes) {
                 if (requestedAttributes.contains(grandParentAttribute.getName() + "." +
                         parentAttribute.getName() + "." + subAttribute.getName())) {
