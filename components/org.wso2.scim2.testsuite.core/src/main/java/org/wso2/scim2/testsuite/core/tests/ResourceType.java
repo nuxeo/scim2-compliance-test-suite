@@ -18,11 +18,11 @@
 
 package org.wso2.scim2.testsuite.core.tests;
 
+import java.util.ArrayList;
+
 import org.wso2.scim2.testsuite.core.entities.TestResult;
 import org.wso2.scim2.testsuite.core.exception.ComplianceException;
 import org.wso2.scim2.testsuite.core.exception.GeneralComplianceException;
-
-import java.util.ArrayList;
 
 /**
  * Interface for scim test cases.
